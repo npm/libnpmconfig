@@ -26,17 +26,15 @@ console.log('configured registry:', config.read({
 
 ### API
 
-##### <a name="read"></a> `> read(moreOpts, readOpts)`
+##### <a name="read"></a> `> read(cliOpts, builtinOpts)`
 
 Reads configurations from the filesystem and the env and returns a
 [`figgy-pudding`](https://npm.im/figgy-pudding) object with the configuration
 values.
 
-If `moreOpts` is provided, it will be merged with the returned config pudding,
-shadowing any read values.
+If `cliOpts` is provided, it will be merged with the returned config pudding,
+shadowing any read values. These are intended as CLI-provided options. Do your
+own `process.argv` parsing, though.
 
-If `readOpts.cwd` is provided, it will be used instead of `process.cwd()` as the
-starting point for config searching.
-
-If `readOpts.userconfig` is provided, it will be used as the user configuration
-file, shadowing `moreOpts.userconfig`, which is also acceptable.
+If `builtinOpts.cwd` is provided, it will be used instead of `process.cwd()` as
+the starting point for config searching.
