@@ -24,15 +24,14 @@ const ConfigOpts = figgyPudding({
 module.exports.read = getNpmConfig
 function getNpmConfig (_opts, _builtin) {
   const builtin = ConfigOpts(_builtin)
-  const env = Object.keys(process.env).reduce((acc, key) => {
-    if (key.match(/^npm_config_/i)) {
-      const newKey = key.toLowerCase()
-        .replace(/^npm_config_/i, '')
-        .replace(/(?!^)_/g, '-')
-      acc[newKey] = process.env[key]
-    }
-    return acc
-  }, {})
+  const env = {}
+  for (let key of Object.keys(process.env)) {
+    if (!/^npm_config_/i.test(key)) continue
+    const newKey = key.toLowerCase()
+      .replace(/^npm_config_/i, '')
+      .replace(/(?!^)_/g, '-')
+    env[newKey] = process.env[key]
+  }
   const cli = NpmConfig(_opts)
   const userConfPath = (
     builtin.userconfig ||
