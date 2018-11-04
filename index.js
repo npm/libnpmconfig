@@ -30,7 +30,6 @@ function getNpmConfig (_opts, configOpts) {
     path: '',
     configs: []
   }).configs.concat(
-    maybeReadIni(copts.userconfig || opts.userconfig)
   ).filter(x => x)
   const env = Object.keys(process.env).reduce((acc, key) => {
     if (key.match(/^npm_config_/i)) {
@@ -41,7 +40,10 @@ function getNpmConfig (_opts, configOpts) {
     }
     return acc
   }, {})
-  const newOpts = NpmConfig(...configs, env, _opts)
+  const userconfig = maybeReadIni(
+    env.userconfig || copts.userconfig || opts.userconfig
+  )
+  const newOpts = NpmConfig(...configs, userconfig, env, _opts)
   if (newOpts.cache) {
     return newOpts.concat({
       cache: path.join(newOpts.cache, '_cacache')
