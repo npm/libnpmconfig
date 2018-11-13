@@ -14,6 +14,8 @@ const NpmConfig = figgyPudding({}, {
 
 const ConfigOpts = figgyPudding({
   cache: { default: path.join(os.homedir(), '.npm') },
+  configNames: { default: ['npmrc', '.npmrc'] },
+  envPrefix: { default: /^npm_config_/i },
   cwd: { default: () => process.cwd() },
   globalconfig: {
     default: () => path.join(getGlobalPrefix(), 'etc', 'npmrc')
@@ -26,9 +28,9 @@ function getNpmConfig (_opts, _builtin) {
   const builtin = ConfigOpts(_builtin)
   const env = {}
   for (let key of Object.keys(process.env)) {
-    if (!/^npm_config_/i.test(key)) continue
+    if (!key.match(builtin.envPrefix)) continue
     const newKey = key.toLowerCase()
-      .replace(/^npm_config_/i, '')
+      .replace(builtin.envPrefix, '')
       .replace(/(?!^)_/g, '-')
     env[newKey] = process.env[key]
   }
@@ -45,7 +47,7 @@ function getNpmConfig (_opts, _builtin) {
     env.globalconfig
   )
   const global = globalConfPath && maybeReadIni(globalConfPath)
-  const projConfPath = findUp.sync(['.npmrc', 'npmrc'], { cwd: builtin.cwd })
+  const projConfPath = findUp.sync(builtin.configNames, { cwd: builtin.cwd })
   let proj
   if (projConfPath && projConfPath !== userConfPath) {
     proj = maybeReadIni(projConfPath)
@@ -53,7 +55,20 @@ function getNpmConfig (_opts, _builtin) {
   const newOpts = NpmConfig(builtin, global, user, proj, env, cli)
   if (newOpts.cache) {
     return newOpts.concat({
-      cache: path.join(newOpts.cache, '_cacache')
+      cache: path.resolve(
+        (
+          (cli.cache || env.cache)
+            ? builtin.cwd
+            : proj.cache
+              ? path.dirname(projConfPath)
+              : user.cache
+                ? path.dirname(userConfPath)
+                : global.cache
+                  ? path.dirname(globalConfPath)
+                  : path.dirname(userConfPath)
+        ),
+        newOpts.cache
+      )
     })
   } else {
     return newOpts
