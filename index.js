@@ -48,7 +48,7 @@ function getNpmConfig (_opts, _builtin) {
   )
   const global = globalConfPath && maybeReadIni(globalConfPath)
   const projConfPath = findUp.sync(builtin.configNames, { cwd: builtin.cwd })
-  let proj
+  let proj = {}
   if (projConfPath && projConfPath !== userConfPath) {
     proj = maybeReadIni(projConfPath)
   }
