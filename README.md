@@ -1,7 +1,19 @@
-# libnpmconfig [![npm version](https://img.shields.io/npm/v/libnpmconfig.svg)](https://npm.im/libnpmconfig) [![license](https://img.shields.io/npm/l/libnpmconfig.svg)](https://npm.im/libnpmconfig) [![Travis](https://img.shields.io/travis/npm/libnpmconfig.svg)](https://travis-ci.org/npm/libnpmconfig) [![AppVeyor](https://ci.appveyor.com/api/projects/status/github/zkat/libnpmconfig?svg=true)](https://ci.appveyor.com/project/zkat/libnpmconfig) [![Coverage Status](https://coveralls.io/repos/github/npm/libnpmconfig/badge.svg?branch=latest)](https://coveralls.io/github/npm/libnpmconfig?branch=latest)
+# libnpmconfig
+
+[![npm version](https://img.shields.io/npm/v/libnpmconfig.svg)](https://npm.im/libnpmconfig)
+[![license](https://img.shields.io/npm/l/libnpmconfig.svg)](https://npm.im/libnpmconfig)
+[![Travis](https://img.shields.io/travis/npm/libnpmconfig.svg)](https://travis-ci.org/npm/libnpmconfig)
+[![Coverage Status](https://coveralls.io/repos/github/npm/libnpmconfig/badge.svg?branch=latest)](https://coveralls.io/github/npm/libnpmconfig?branch=latest)
 
 [`libnpmconfig`](https://github.com/npm/libnpmconfig) is a Node.js library for
 programmatically managing npm's configuration files and data.
+
+## Table of Contents
+
+* [Example](#example)
+* [Install](#install)
+* [Contributing](#contributing)
+* [API](#api)
 
 ## Example
 
@@ -18,11 +30,22 @@ console.log('configured registry:', config.read({
 
 `$ npm install libnpmconfig`
 
-## Table of Contents
+### Contributing
 
-* [Example](#example)
-* [Install](#install)
-* [API](#api)
+The npm team enthusiastically welcomes contributions and project participation!
+There's a bunch of things you can do if you want to contribute! The
+[Contributor Guide](https://github.com/npm/cli/blob/latest/CONTRIBUTING.md)
+outlines the process for community interaction and contribution. Please don't
+hesitate to jump in if you'd like to, or even ask us questions if something
+isn't clear.
+
+All participants and maintainers in this project are expected to follow the
+[npm Code of Conduct](https://www.npmjs.com/policies/conduct), and just
+generally be excellent to each other.
+
+Please refer to the [Changelog](CHANGELOG.md) for project history details, too.
+
+Happy hacking!
 
 ### API
 
