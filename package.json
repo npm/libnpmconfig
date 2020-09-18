@@ -32,7 +32,7 @@
   "homepage": "https://npmjs.com/package/libnpmconfig",
   "dependencies": {
     "figgy-pudding": "^3.5.1",
-    "find-up": "^3.0.0",
+    "find-up": "^5.0.0",
     "ini": "^1.3.5"
   }
 }
