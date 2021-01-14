@@ -93,8 +93,8 @@ function getGlobalPrefix () {
   if (process.env.PREFIX) {
     return process.env.PREFIX
   } else if (process.platform === 'win32') {
-    // c:\node\node.exe --> prefix=c:\node\
-    return path.dirname(process.execPath)
+    // On Windows, it's default %AppData%\npm
+    return path.join(process.env.APPDATA, 'npm')
   } else {
     // /usr/local/bin/node --> prefix=/usr/local
     let pref = path.dirname(path.dirname(process.execPath))
